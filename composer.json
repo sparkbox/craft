@@ -1,17 +1,18 @@
 {
-  "name": "craftcms/craft",
-  "description": "Craft CMS",
+  "name": "sparkbox/craft",
+  "description": "Sparkbox - Craft CMS",
   "keywords": [
     "craft",
     "cms",
     "craftcms",
-    "project"
+    "project",
+    "sparkbox"
   ],
   "license": "MIT",
   "homepage": "https://craftcms.com/",
   "type": "project",
   "support": {
-    "email": "support@craftcms.com",
+    "email": "developman@heysparkbox.com",
     "issues": "https://github.com/craftcms/cms/issues",
     "forum": "https://craftcms.stackexchange.com/",
     "source": "https://github.com/craftcms/cms",
