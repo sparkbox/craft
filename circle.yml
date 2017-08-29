@@ -1,0 +1,29 @@
+general:
+  artifacts:
+    - "~/site.tar.gz"
+
+dependencies:
+  override:
+      - composer install
+    # - sudo apt-get update && sudo apt-get install php-pear
+    # - npm install
+
+machine:
+  php:
+    version: 7.0.22
+  node:
+    version: 8.2.1
+  ruby:
+    version: 2.2.3
+  environment:
+    NODE_ENV: production
+
+test:
+  override:
+    - echo 'no tests...'
+
+deployment:
+  production:
+    branch: /.*/
+    commands:
+      - tar --exclude=".git" --exclude="node_modules" -czvf ~/site.tar.gz .
