@@ -46,63 +46,50 @@ This guide is exactly the steps that need to be followed to install Homebrew, Ap
 $ /usr/bin/ruby -e "$(curl -fsSL [https://raw.githubusercontent.com/Homebrew/install/master/install](https://raw.githubusercontent.com/Homebrew/install/master/install))"
 
 	$ brew --version
-	
 	$ brew doctor
 	
 	$ brew tap homebrew/dupes
-	
 	$ brew tap homebrew/versions
-	
 	$ brew tap homebrew/php
-	
 	$ brew tap homebrew/apache
 	
 	$ brew update
 
 ## Installing Apache
 
-	**$ which apachectl**
-	
+	$ which apachectl
 	$ sudo apachectl stop
-	
 	$ sudo launchctl unload -w /System/Library/LaunchDaemons/org.apache.httpd.plist 2>/dev/null
-	
 	$ brew install httpd24 --with-privileged-ports --with-http2
 	
-	$ sudo cp -v /usr/local/Cellar/httpd24/**2.4.27**/homebrew.mxcl.httpd24.plist /Library/LaunchDaemons
-	
+Note: 2.4.27 might not be what you installed, check your version and replace it in the following command: 
+
+	$ sudo cp -v /usr/local/Cellar/httpd24/2.4.27/homebrew.mxcl.httpd24.plist /Library/LaunchDaemons
 	$ sudo chown -v root:wheel /Library/LaunchDaemons/homebrew.mxcl.httpd24.plist
-	
 	$ sudo chmod -v 644 /Library/LaunchDaemons/homebrew.mxcl.httpd24.plist
-	
 	$ sudo launchctl load /Library/LaunchDaemons/homebrew.mxcl.httpd24.plist
 	
 	$ sudo apachectl -k restart
 
-**Useful commands to know:**
+Useful commands to know:
 
 	$ sudo apachectl start
-	
 	$ sudo apachectl stop
-	
 	$ sudo apachectl -k restart
 
-**Important file locations:**
+Important file locations:
 
 	/usr/local/etc/apache2/2.4/httpd.conf
 
 ## Installing PHP
 
 	$ brew install php56 --with-httpd24
-	
 	$ brew unlink php56
-	
 	$ brew install php70 --with-httpd24
-
-**Important**** file locations: **
+	
+Important file locations:
 	
 	/usr/local/etc/php/5.6/php.ini
-	
 	/usr/local/etc/php/7.0/php.ini
 
 ## Setting up Apache
@@ -116,7 +103,6 @@ Create a default VHost
 In your web root.
 
 	$ echo "Hello there" > index.html
-	
 	$ echo "<?php phpinfo();" > info.php
 
 Edit your Apache Configuration File, DocumentRoot to the following. (Replace the existing document root with your document root):
@@ -124,25 +110,20 @@ Edit your Apache Configuration File, DocumentRoot to the following. (Replace the
 	DocumentRoot "/Users/<your_username>/www"
 	
 	<Directory "/Users/<your_username>/www">
-	
 	    Options Indexes FollowSymLinks
-	
 	    AllowOverride All
-	
 	    Require all granted
-	
 	</Directory>
 
-	DocumentRoot "/var/www"
+	DocumentRoot "/Users/<your_username>/www"
 
 Add
 
 	Include /usr/local/etc/apache2/2.4/vhosts/*
 	
-	User/Group
+User/Group
 	
 	User _www
-	
 	Group _www
 
 ### Turning on PHP in Apache.
@@ -152,47 +133,37 @@ Open the Apache Config file ( /usr/local/etc/apache2/2.4/httpd.conf )
 **Edit the following lines:**
 	
 	LoadModule php5_module        /usr/local/Cellar/php56/5.6.26_3/libexec/apache2/libphp5.so
-	
-	LoadModule php7_module        /usr/local/Cellar/php70/7.0.11_5/libexec/apache2/libphp7.**so**
+	LoadModule php7_module        /usr/local/Cellar/php70/7.0.11_5/libexec/apache2/libphp7.so
 
 **To the following: **
 	
 	# LoadModule php5_module    /usr/local/opt/php56/libexec/apache2/libphp5.so
-	
 	LoadModule php7_module    /usr/local/opt/php70/libexec/apache2/libphp7.so
 	
 **Edit the following lines:**
 
 	<IfModule dir_module>
-	
 	    DirectoryIndex index.html
-	
 	</IfModule>
 
 **To the following:**
 
 	<IfModule dir_module>
-	
 	    DirectoryIndex index.php index.html
-	
 	</IfModule>
 	
 	<FilesMatch \.php$>
-	
 	    SetHandler application/x-httpd-php
-	
 	</FilesMatch>
 
 ### Vhosts and the Hosts File
 
 Using Apache 2.4  you should be able to add vhosts using the vhost directory.
 
-In your local apache `/usr/local/etc/apache2/2.4/ directory run the following commands.
+In your local apache `/usr/local/etc/apache2/2.4/` directory run the following commands.
 
 	$ mkdir vhosts
-	
 	$ cd vhosts
-	
 	$ touch <your_project_name>.conf
 
 Open the file <your_project_name>.conf
@@ -200,25 +171,16 @@ Open the file <your_project_name>.conf
 Copy and paste the following vhost configuration inside that file:
 
 	<VirtualHost 127.0.0.1:80>
+	    ServerAdmin youremail@heysparkbox.com
+	    DocumentRoot "<your_path_to_files>/<your_project_name>/web"
+	    ServerName <your_project_name>.dev
 	
-	    ServerAdmin **youremail@heysparkbox.com**
-	
-	    DocumentRoot "**<your_path_to_files>/<your_project_name>/web**"
-	
-	    ServerName **<your_project_name>.dev**
-	
-	    <Directory "**<your_path_to_files>/<your_project_name>/web**">
-	
+	    <Directory "<your_path_to_files>/<your_project_name>/web">
 	       Options Indexes MultiViews FollowSymLinks
-	
 	       AllowOverride All
-	
 	       Require all granted
-	
 	       DirectoryIndex index.php
-	
 	   </Directory>
-	
 	</VirtualHost>
 
 You’ll need to swap out the bolded text with your own settings.
@@ -226,7 +188,6 @@ You’ll need to swap out the bolded text with your own settings.
 Save this file, and restart apache.
 
 Host file, open with `sudo` to make changes to /etc/hosts
-
 Add the following to the end of the file.
 
 	127.0.0.1 <your_project_name>.dev
@@ -280,9 +241,9 @@ We’ll be installing composer globally.
 
 Then run:
 
-	$ chmod -R 774 **/path_to_project/<your_project_name>**
+	$ chmod -R 774 /path_to_project/<your_project_name>
 	
-	$ chmod -R g+rwx,o+rwx **/path_to_project/<your_project_name>**
+	$ chmod -R g+rwx,o+rwx /path_to_project/<your_project_name>
 
 ### Sparkbox Craft Install
 
