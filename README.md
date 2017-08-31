@@ -1,9 +1,7 @@
 # Sparkbox - Craft
 
 A fork of Craft CMS - https://github.com/craftcms/craft
-
-# Craft Install
-
+  
 This guide will guide you to install:
 
 * Homebrew
@@ -62,15 +60,15 @@ $ /usr/bin/ruby -e "$(curl -fsSL [https://raw.githubusercontent.com/Homebrew/ins
 	
 	$ sudo launchctl load /Library/LaunchDaemons/homebrew.mxcl.httpd24.plist
 	
-	$ **sudo apachectl -k restart**
+	$ sudo apachectl -k restart
 
 **Useful commands to know:**
 
-	**$ sudo apachectl start**
+	$ sudo apachectl start
 	
-	**$ sudo apachectl stop**
+	$ sudo apachectl stop
 	
-	**$ sudo apachectl -k restart**
+	$ sudo apachectl -k restart
 
 **Important file locations:**
 
@@ -86,9 +84,9 @@ $ /usr/bin/ruby -e "$(curl -fsSL [https://raw.githubusercontent.com/Homebrew/ins
 
 **Important**** file locations: **
 	
-	**/usr/local/etc/php/5.6/php.ini**
+	/usr/local/etc/php/5.6/php.ini
 	
-	**/usr/local/etc/php/7.0/php.ini**
+	/usr/local/etc/php/7.0/php.ini
 
 ## Setting up Apache
 
