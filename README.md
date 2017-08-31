@@ -43,7 +43,7 @@ This guide is exactly the steps that need to be followed to install Homebrew, Ap
 
 ## Installing Homebrew
 
-$ /usr/bin/ruby -e "$(curl -fsSL [https://raw.githubusercontent.com/Homebrew/install/master/install](https://raw.githubusercontent.com/Homebrew/install/master/install))"
+	$ /usr/bin/ruby -e "$(curl -fsSL [https://raw.githubusercontent.com/Homebrew/install/master/install](https://raw.githubusercontent.com/Homebrew/install/master/install))"
 
 	$ brew --version
 	$ brew doctor
