@@ -254,4 +254,8 @@ If you are cloning an existing already created project, but have not yet run com
 
 	$ composer install
 
+### Extra
 
+If you've updated permissions, git might want to think these files have been modified. 
+
+run: `git config --global core.fileMode false` to ignore permission modifications from being committed.
