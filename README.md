@@ -1,6 +1,23 @@
 # Sparkbox - Craft
 
 A fork of Craft CMS - https://github.com/craftcms/craft
+
+## Table of Contents
+
+   * [Sparkbox - Craft](#sparkbox---craft)
+      * [Installing Xcode Libraries](#installing-xcode-libraries)
+      * [Installing Homebrew](#installing-homebrew)
+      * [Installing Apache](#installing-apache)
+      * [Installing PHP](#installing-php)
+      * [Setting up Apache](#setting-up-apache)
+         * [Turning on PHP in Apache.](#turning-on-php-in-apache)
+         * [Vhosts and the Hosts File](#vhosts-and-the-hosts-file)
+      * [Installing MySQL](#installing-mysql)
+         * [Install Sequel Pro](#install-sequel-pro)
+      * [Installing Composer](#installing-composer)
+      * [Project Setup](#project-setup)
+         * [File Permissions](#file-permissions)
+         * [Sparkbox Craft Install](#sparkbox-craft-install)
   
 This guide will guide you to install:
 
