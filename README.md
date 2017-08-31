@@ -237,13 +237,12 @@ We’ll be installing composer globally.
 
 ### File Permissions
 
-	$ chgrp -R* <group_name>* **<path_to_project>**
+	$ chgrp -R <group_name> <path_to_project>
 
 Then run:
 
 	$ chmod -R 774 /path_to_project/<your_project_name>
-	
-	$ chmod -R g+rwx,o+rwx /path_to_project/<your_project_name>
+
 
 ### Sparkbox Craft Install
 
