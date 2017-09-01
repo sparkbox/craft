@@ -87,6 +87,10 @@ Important file locations:
 	$ brew unlink php56
 	$ brew install php70 --with-httpd24
 	
+You also need to install mcrypt. 
+
+	$ brew install php70-mcrypt --with-httpd24
+	
 Important file locations:
 	
 	/usr/local/etc/php/5.6/php.ini
@@ -125,6 +129,13 @@ User/Group
 	
 	User _www
 	Group _www
+	
+### Mod Rewrite
+
+Uncomment the line:
+
+	LoadModule rewrite_module libexec/mod_rewrite.so
+	
 
 ### Turning on PHP in Apache.
 
