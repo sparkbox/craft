@@ -33,7 +33,7 @@ This guide will guide you to install:
 
 This document assumes that the reader has a MacBook of some kind, with the latest Operating System (MacOS Sierra 10.12.6 at the time of writing). The reader also must be able to issue commands in the terminal, must have some basic understanding of the underlying operating system and file system. 
 
-This guide is exactly the steps that need to be followed to install Homebrew, Apache, and PHP. 
+This guide is exactly the steps that need to be followed to install Homebrew, Apache, PHP, and Craft. 
 
 [https://getgrav.org/blog/macos-sierra-apache-multiple-php-versions](https://getgrav.org/blog/macos-sierra-apache-multiple-php-versions) 
 
@@ -95,6 +95,26 @@ Important file locations:
 	
 	/usr/local/etc/php/5.6/php.ini
 	/usr/local/etc/php/7.0/php.ini
+
+## Installing Composer
+
+We’ll be installing composer globally. 
+
+	$ cd ~
+	
+	$ wget https://raw.githubusercontent.com/composer/getcomposer.org/1b137f8bf6db3e79a38a5bc45324414a6b1f9df2/web/installer -O - -q | php -- --quiet
+	
+	$ mv composer.phar /usr/local/bin/composer
+
+## Sparkbox Craft Install
+
+If you are creating the repo, you’ll need to run this command, which will grab all the composer files from our starter kit and setup the project. 
+
+	$ composer create-project -s beta sparkbox/craft <your_project_name>
+
+If you are cloning an existing already created project, but have not yet run composer install, you should be able to simply run that command inside the project directory.
+
+	$ composer install
 
 ## Setting up Apache
 
@@ -184,7 +204,7 @@ Copy and paste the following vhost configuration inside that file:
 	<VirtualHost 127.0.0.1:80>
 	    ServerAdmin youremail@heysparkbox.com
 	    DocumentRoot "<your_path_to_files>/<your_project_name>/web"
-	    ServerName <your_project_name>.dev
+	    ServerName <your_project_name>.local
 	
 	    <Directory "<your_path_to_files>/<your_project_name>/web">
 	       Options Indexes MultiViews FollowSymLinks
@@ -201,7 +221,7 @@ Save this file, and restart apache.
 Host file, open with `sudo` to make changes to /etc/hosts
 Add the following to the end of the file.
 
-	127.0.0.1 <your_project_name>.dev
+	127.0.0.1 <your_project_name>.local
 
 ## Installing MySQL
 
@@ -234,16 +254,6 @@ Using the link:
 
 Download and install the binary for Sequel Pro. This (free) application will be able to create databases, users, and export/import data from external databases. 
 
-## Installing Composer
-
-We’ll be installing composer globally. 
-
-	$ cd ~
-	
-	$ wget https://raw.githubusercontent.com/composer/getcomposer.org/1b137f8bf6db3e79a38a5bc45324414a6b1f9df2/web/installer -O - -q | php -- --quiet
-	
-	$ mv composer.phar /usr/local/bin/composer
-
 ## Project Setup
 
 ### File Permissions
@@ -254,16 +264,30 @@ Then run:
 
 	$ chmod -R 774 /path_to_project/<your_project_name>
 
+### Create Database
 
-### Sparkbox Craft Install
+Login to mysql as root
 
-If you are creating the repo, you’ll need to run this command, which will grab all the composer files from our starter kit and setup the project. 
+	$ mysql -u root -p
 
-	$ composer create-project -s beta sparkbox/craft <your_project_name>
+Create your database
 
-If you are cloning an existing already created project, but have not yet run composer install, you should be able to simply run that command inside the project directory.
+	mysql create database db_name;
 
-	$ composer install
+Check that your database exists
+
+	mysql show databases;
+
+If you want to create a specific user for that database (instead of using root), you can do that here as well
+
+	mysql create user db_user;
+	mysql grant select, insert, delete, update on db_name.* to 'db_user'@'localhost' identified by 'db_password';
+
+Tell Craft how to access your database by updating the .env file in your project directory with the database name, user, and password.
+
+### Run Craft!
+
+In your browser, go to `<your_project_name>.local/admin`. You should get a screen with a button to install Craft. Click that, create an account, and you should be good to go!
 
 ### Extra
 
