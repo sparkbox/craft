@@ -294,3 +294,15 @@ In your browser, go to `<your_project_name>.local/admin`. You should get a scree
 If you've updated permissions, git might want to think these files have been modified. 
 
 run: `git config --global core.fileMode false` to ignore permission modifications from being committed.
+
+## Common Issues
+
+In PHP versions similar to 7.0.27, and httpd versions similar to 2.4.29, you might run into errors like this within your log file:
+
+        [Thu Feb 15 09:16:51.849759 2018] [core:notice] [pid 3230:tid 140735914537792] AH00052: child pid 3254 exit signal Segmentation fault (11)
+
+To fix this, you must enable the `mpm_prefork_module` by adding this line to your `httpd.conf` file:
+
+        LoadModule mpm_prefork_module lib/httpd/modules/mod_mpm_prefork.so
+
+**Note:** You may also need to comment out the `mpm_event_module` in order to get this to load.
