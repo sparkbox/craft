@@ -18,6 +18,9 @@ A fork of Craft CMS - https://github.com/craftcms/craft
       * [Project Setup](#project-setup)
          * [File Permissions](#file-permissions)
          * [Sparkbox Craft Install](#sparkbox-craft-install)
+      * [Common Issues](#common-issues)
+         * [exit signal Segmentation fault](#exit-signal-segmentation-fault)
+         * [Fields Not Saving](#fields-not-saving)
   
 This guide will guide you to install:
 
@@ -297,6 +300,8 @@ run: `git config --global core.fileMode false` to ignore permission modification
 
 ## Common Issues
 
+### exit signal Segmentation fault
+
 In PHP versions similar to 7.0.27, and httpd versions similar to 2.4.29, you might run into errors like this within your log file:
 
         [Thu Feb 15 09:16:51.849759 2018] [core:notice] [pid 3230:tid 140735914537792] AH00052: child pid 3254 exit signal Segmentation fault (11)
@@ -306,3 +311,13 @@ To fix this, you must enable the `mpm_prefork_module` by adding this line to you
         LoadModule mpm_prefork_module lib/httpd/modules/mod_mpm_prefork.so
 
 **Note:** You may also need to comment out the `mpm_event_module` in order to get this to load.
+
+### Fields Not Saving
+
+If you run into a situation where you add a field inside the Craft CMS and it does not save (even though it appears to at first and there are no error messages) you may need to increase your PHP max-input-vars.
+
+To fix this, add this line to your .htaccess file:
+
+	php_value max_input_vars 5000
+
+Make sure this change also gets made on the server for any versions of your app that are using a shared .htaccess file.
